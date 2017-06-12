@@ -23,4 +23,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -yq && apt-get install -yq --n
             php7.0-curl \
         && apt-get autoremove \
         && apt-get autoclean
+RUN php -r "copy('https://getcomposer.org/installer', '/tmp/composer-setup.php');" \
+    && php /tmp/composer-setup.php --filename=composer
 CMD ["php -a"]
