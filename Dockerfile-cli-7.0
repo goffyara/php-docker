@@ -4,7 +4,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -yq && apt-get install -yq --n
         apt-transport-https \
         ca-certificates \
         curl \
-        gti \
+        git \
         && echo "deb https://packages.sury.org/php/ jessie main" > /etc/apt/sources.list.d/php.list \
         && curl -o apt.gpg https://packages.sury.org/php/apt.gpg \
         && apt-key add apt.gpg \
