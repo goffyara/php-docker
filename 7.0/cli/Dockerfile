@@ -1,15 +1,17 @@
 FROM debian:jessie
+ENV LC_CTYPE C.UTF-8
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -yq && apt-get install -yq --no-install-recommends \
         apt-utils \
         apt-transport-https \
         ca-certificates \
         curl \
-        git \
+        && rm /etc/localtime \
+        && ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime \
         && echo "deb https://packages.sury.org/php/ jessie main" > /etc/apt/sources.list.d/php.list \
         && curl -o apt.gpg https://packages.sury.org/php/apt.gpg \
         && apt-key add apt.gpg \
         && rm apt.gpg \
-        && apt-get update -yq && apt-get install -yq \
+        && apt-get update -yq && apt-get install -yq --no-install-recommends\
             php7.0-cli \
             php7.0-pgsql \
             php7.0-mysql \
@@ -24,6 +26,4 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -yq && apt-get install -yq --n
             php7.0-curl \
         && apt-get autoremove \
         && apt-get autoclean
-RUN php -r "copy('https://getcomposer.org/installer', '/tmp/composer-setup.php');" \
-    && php /tmp/composer-setup.php --filename=/usr/bin/composer
 CMD ["php -a"]

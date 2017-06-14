@@ -1,4 +1,4 @@
-FROM goffyara/php-docker:cli-7.1
+FROM goffyara/php:cli-7.1
 RUN apt-get update && apt-get install -y \
     php7.1-fpm \
     && apt-get autoremove \
