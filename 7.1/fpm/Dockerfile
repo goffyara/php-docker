@@ -1,5 +1,5 @@
 FROM goffyara/php:cli-7.1
-RUN apt-get update && apt-get install -y \
+RUN apt-get update -y && apt-get install -y \
     php7.1-fpm \
     && apt-get autoremove \
     && apt-get autoclean \

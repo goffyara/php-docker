@@ -1,4 +1,4 @@
 FROM goffyara/php:cli-7.1
-RUN apt-get install git -yq \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update -y && apt-get install git -y \
     && php -r "copy('https://getcomposer.org/installer', '/tmp/composer-setup.php');" \
     && php /tmp/composer-setup.php --filename=/usr/bin/composer

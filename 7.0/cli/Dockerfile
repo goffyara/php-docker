@@ -1,6 +1,6 @@
 FROM debian:jessie
 ENV LC_CTYPE C.UTF-8
-RUN DEBIAN_FRONTEND=noninteractive apt-get update -yq && apt-get install -yq --no-install-recommends \
+RUN DEBIAN_FRONTEND=noninteractive apt-get update -y && apt-get install -y --no-install-recommends \
         apt-utils \
         apt-transport-https \
         ca-certificates \
@@ -11,7 +11,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -yq && apt-get install -yq --n
         && curl -o apt.gpg https://packages.sury.org/php/apt.gpg \
         && apt-key add apt.gpg \
         && rm apt.gpg \
-        && apt-get update -yq && apt-get install -yq --no-install-recommends\
+        && apt-get update -y && apt-get install -y --no-install-recommends\
             php7.0-cli \
             php7.0-pgsql \
             php7.0-mysql \
