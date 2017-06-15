@@ -1,3 +1,8 @@
-FROM goffyara/php:fpm-7.0
-RUN php -r "copy('https://getcomposer.org/installer', '/tmp/composer-setup.php');" \
-    && php /tmp/composer-setup.php --filename=/usr/bin/composer
+FROM goffyara/php:cli-7.0
+RUN apt-get update -y && apt-get install -y \
+    php7.1-fpm \
+    && apt-get autoremove \
+    && apt-get autoclean \
+    && mkdir /run/php
+EXPOSE 9000
+CMD ["/usr/sbin/php-fpm7.1", "-F"]
