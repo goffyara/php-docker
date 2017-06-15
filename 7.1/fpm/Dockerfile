@@ -1,4 +1,4 @@
-FROM goffyara/php:cli-7.1
+FROM goffyara/php:7.1-cli
 RUN apt-get update -y && apt-get install -y \
     php7.1-fpm \
     && apt-get autoremove \
