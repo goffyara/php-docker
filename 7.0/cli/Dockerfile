@@ -45,3 +45,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get autoremove -y \
     && apt-get autoclean -y \
     && curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer \
+CMD ["php -a"]

@@ -1,29 +1,48 @@
-FROM debian:jessie
-ENV LC_CTYPE C.UTF-8
-RUN DEBIAN_FRONTEND=noninteractive apt-get update -y && apt-get install -y --no-install-recommends \
-        apt-utils \
-        apt-transport-https \
-        ca-certificates \
+FROM php:7.1.8-cli
+ENV DEBIAN_FRONTEND noninteractive
+ENV COMPOSER_ALLOW_SUPERUSER 1
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        git \
+        #mcrypt
+        mcrypt \
+        libmcrypt-dev \
+        #curl
+        libcurl4-openssl-dev \
+        #gd
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng12-dev \
+        #memcached
+        libmemcached-dev \
+        zlib1g-dev \
+        #intl
+        libicu-dev \
+        #xml
+        libxml2-dev \
+        #pdo_pgsql
+        libpq-dev \
+        #imagick
+        libmagickwand-dev \
+    && docker-php-ext-configure \
+        gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-configure intl --with-icu-dir=/usr \
+    && docker-php-ext-install -j$(nproc) \
         curl \
-        && rm /etc/localtime \
-        && ln -s /usr/share/zoneinfo/Europe/Moscow /etc/localtime \
-        && echo "deb https://packages.sury.org/php/ jessie main" > /etc/apt/sources.list.d/php.list \
-        && curl -o apt.gpg https://packages.sury.org/php/apt.gpg \
-        && apt-key add apt.gpg \
-        && rm apt.gpg \
-        && apt-get update -y && apt-get install -y --no-install-recommends \
-            php7.1-cli \
-            php7.1-pgsql \
-            php7.1-mysql \
-            php7.1-gd \
-            php7.1-intl \
-            php7.1-mbstring \
-            php7.1-xml \
-            php7.1-memcached \
-            php7.1-xdebug \
-            php7.1-bcmath \
-            php7.1-zip \
-            php7.1-curl \
-        && apt-get autoremove \
-        && apt-get autoclean
+        pdo_pgsql \
+        pdo_mysql \
+        gd \
+        intl \
+        mbstring \
+        xml \
+        bcmath \
+        zip \
+    && pecl install \
+        xdebug-2.5.5  \
+        memcached-3.0.3 \
+        imagick-3.4.3 \
+    && docker-php-ext-enable memcached xdebug imagick \
+    && apt-get autoremove -y \
+    && apt-get autoclean -y \
+    && curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer \
 CMD ["php -a"]
