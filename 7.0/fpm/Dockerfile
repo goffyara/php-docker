@@ -47,4 +47,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer \
     && mkdir /run/php
 EXPOSE 9000
-CMD ["/usr/sbin/php-fpm7.0", "-F"]
+CMD ["php-fpm"]
