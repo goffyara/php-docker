@@ -1,4 +1,4 @@
-FROM php:7.1.8-cli
+FROM php:7.1-cli
 ENV DEBIAN_FRONTEND noninteractive
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
