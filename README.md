@@ -21,3 +21,5 @@ Contains
 * php-bcmath
 * php-zip
 * php-curl
+* php-pcntl
+* php-xml

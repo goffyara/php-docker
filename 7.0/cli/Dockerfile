@@ -37,6 +37,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         xml \
         bcmath \
         zip \
+        pcntl \
     && pecl install \
         xdebug-2.5.5  \
         memcached-3.0.3 \
