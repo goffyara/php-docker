@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         #gd
         libfreetype6-dev \
         libjpeg62-turbo-dev \
-        libpng12-dev \
+        libpng-dev \
         #memcached
         libmemcached-dev \
         zlib1g-dev \
@@ -27,6 +27,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && docker-php-ext-configure \
         gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-configure intl --with-icu-dir=/usr \
+    && docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install -j$(nproc) \
         curl \
         pdo_pgsql \
@@ -37,14 +38,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         xml \
         bcmath \
         zip \
+        opcache \
     && pecl install \
         xdebug-2.5.5  \
         memcached-3.0.3 \
         imagick-3.4.3 \
+        apcu-5.1.12 \
     && docker-php-ext-enable memcached xdebug imagick \
     && apt-get autoremove -y \
     && apt-get autoclean -y \
     && curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer \
     && mkdir /run/php
-EXPOSE 9000
 CMD ["php-fpm"]

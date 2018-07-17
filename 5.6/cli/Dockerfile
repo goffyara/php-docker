@@ -1,4 +1,4 @@
-FROM php:7.0-fpm
+FROM php:5.6-cli
 ENV DEBIAN_FRONTEND noninteractive
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
@@ -38,15 +38,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         xml \
         bcmath \
         zip \
+        pcntl \
         opcache \
     && pecl install \
-        xdebug-2.5.5  \
-        memcached-3.0.3 \
+        xdebug-2.6.0  \
+        memcached-2.2.0 \
         imagick-3.4.3 \
         apcu-5.1.12 \
     && docker-php-ext-enable memcached xdebug imagick \
+
     && apt-get autoremove -y \
     && apt-get autoclean -y \
-    && curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer \
-    && mkdir /run/php
-CMD ["php-fpm"]
+    && curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+CMD ["php -a"]

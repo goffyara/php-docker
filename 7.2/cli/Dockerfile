@@ -27,6 +27,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && docker-php-ext-configure \
         gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-configure intl --with-icu-dir=/usr \
+    && docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install -j$(nproc) \
         curl \
         pdo_pgsql \
@@ -38,10 +39,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         bcmath \
         zip \
         pcntl \
+        opcache \
     && pecl install \
-        xdebug-2.6.0alpha1  \
-        memcached-3.0.4 \
+        xdebug-2.6.0  \
+        memcached-3.0.3 \
         imagick-3.4.3 \
+        apcu-5.1.12 \
     && docker-php-ext-enable memcached xdebug imagick \
     && apt-get autoremove -y \
     && apt-get autoclean -y \
