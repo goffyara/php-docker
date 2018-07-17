@@ -45,7 +45,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         memcached-2.2.0 \
         imagick-3.4.3 \
         apcu-5.1.12 \
-    && docker-php-ext-enable memcached xdebug imagick \
+    && docker-php-ext-enable memcached xdebug imagick apcu \
 
     && apt-get autoremove -y \
     && apt-get autoclean -y \
