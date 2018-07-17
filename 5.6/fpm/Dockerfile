@@ -41,7 +41,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         opcache \
     && pecl install \
         xdebug-2.5.5  \
-        memcached-3.0.3 \
+        memcached-2.2.0 \
         imagick-3.4.3 \
         apcu-5.1.12 \
     && docker-php-ext-enable memcached xdebug imagick \
